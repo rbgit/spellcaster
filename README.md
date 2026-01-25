@@ -100,37 +100,25 @@ bd list           # Everything at a glance
 
 ### Orchestrator Architecture
 
-Opus acts as the orchestrator, managing subagents through `progress.md`:
+Opus orchestrates subagents, with `progress.md` preserving state between sessions:
 
 ```mermaid
-flowchart TB
-    subgraph orchestrator ["Orchestrator (Opus)"]
-        O["Reads progress.md<br/>Makes decisions"]
-    end
+flowchart TD
+    O["Opus (Orchestrator)"]
+    O --> R["Researcher"]
+    O --> C["Coder"]
+    O --> V["Reviewer"]
+    O --> M["Committer"]
 
-    subgraph subagents ["Subagents execute tasks"]
-        R["Researcher"]
-        C["Coder"]
-        V["Reviewer"]
-        M["Committer"]
-    end
-
-    subgraph tracking ["Task Tracking"]
-        B["Beads<br/>(task details)"]
-        P["progress.md<br/>(handoff summaries)"]
-    end
-
-    O -->|"Dispatches"| R & C & V & M
-    R & C & V & M --> B
-    R & C & V & M -->|"Key findings"| P
-    P -->|"Session state"| O
+    R & C & V & M --> B["Beads (task details)"]
+    R & C & V & M --> P["progress.md (handoffs)"]
+    P -.->|"next session"| O
 ```
 
 **How it works:**
-- **Beads** stores detailed task state (status, dependencies, notes)
-- **Subagents** update Beads as they work
-- **progress.md** receives only the important handoff info
-- **Orchestrator** reads progress.md to understand current state
+- **Opus** dispatches tasks to specialized subagents
+- **Subagents** track work in Beads, write key findings to progress.md
+- **progress.md** lets Opus resume context in the next session
 
 ### Session Management
 
