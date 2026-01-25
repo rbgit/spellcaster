@@ -6,8 +6,7 @@ A structured workflow for AI-assisted coding that thinks before it builds, track
 
 ```bash
 # Clone the repo
-git clone https://github.com/rachit-j/spellcaster.git
-
+git clone https://github.com/rbgit/spellcaster.git
 # Copy into your project's .claude directory
 cp -r spellcaster/skills your-project/.claude/
 cp -r spellcaster/agents your-project/.claude/
@@ -137,7 +136,7 @@ flowchart TD
 ### Step 1: Get Spellcaster
 
 ```bash
-git clone https://github.com/rachit-j/spellcaster.git
+git clone https://github.com/rbgit/spellcaster.git
 cp -r spellcaster/skills your-project/.claude/
 cp -r spellcaster/agents your-project/.claude/
 ```
