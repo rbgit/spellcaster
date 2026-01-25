@@ -98,6 +98,47 @@ bd show task-1    # Show me the details
 bd list           # Everything at a glance
 ```
 
+### Orchestrator Architecture
+
+Opus acts as the orchestrator, managing subagents through `progress.md`:
+
+```mermaid
+flowchart TB
+    subgraph orchestrator ["Orchestrator (Opus)"]
+        O["Reads progress.md<br/>Makes decisions"]
+    end
+
+    subgraph subagents ["Subagents execute tasks"]
+        R["Researcher"]
+        C["Coder"]
+        V["Reviewer"]
+        M["Committer"]
+    end
+
+    subgraph tracking ["Task Tracking"]
+        B["Beads<br/>(task details)"]
+        P["progress.md<br/>(handoff summaries)"]
+    end
+
+    O -->|"Dispatches"| R & C & V & M
+    R & C & V & M --> B
+    R & C & V & M -->|"Key findings"| P
+    P -->|"Session state"| O
+```
+
+**How it works:**
+- **Beads** stores detailed task state (status, dependencies, notes)
+- **Subagents** update Beads as they work
+- **progress.md** receives only the important handoff info
+- **Orchestrator** reads progress.md to understand current state
+
+### Session Management
+
+`progress.md` enables multi-session work:
+- Stop anytime — progress.md captures where you left off
+- Next day, the orchestrator reads progress.md and continues
+- Use `/clear` frequently to avoid context rot in long sessions
+
 ## Installation
 
 ### Prerequisites
@@ -198,6 +239,13 @@ bd update <id> --status complete
 # Start planning
 "Let's plan this with claude-codex-planner"
 ```
+
+## Credits
+
+Inspired by and built upon:
+- [RALPH Loop](https://ghuntley.com/ralph/) — The Research-Code-Review-Commit workflow pattern
+- [Beads](https://github.com/steveyegge/beads) — Task management system for AI agents
+- [OpenAI Codex Execution Plans](https://developers.openai.com/cookbook/articles/codex_exec_plans) — Multi-agent orchestration patterns
 
 ## License
 
