@@ -39,7 +39,7 @@ Developed for [Claude Code](https://claude.ai/claude-code), but works with any A
 
 ### Skill: Spellcaster (`skills/SKILL.md`)
 
-Executes the RALPH Loop - a structured build workflow that breaks your project into Epics and Tasks, then iterates through Research, Code, Review, and Commit phases.
+Executes the RALPH Loop - a structured build workflow that breaks your project (expects a PRD but you can create one with Claude-Codex-Planner agent below) into Epics and Tasks, then iterates through Research, Code, Review, and Commit phases.
 
 ### Agent: Claude-Codex Planner (`agents/claude-codex-planner.md`)
 
