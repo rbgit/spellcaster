@@ -47,13 +47,16 @@ pip install -e ".[dev]"
 
 ---
 
-## Start Postgres
+## Set Up Postgres
+
+Requires a local Postgres 16 instance. Run once:
 
 ```bash
-docker-compose up -d
-# Confirm healthy:
-docker-compose ps
+bash setup_db.sh
+export DBOS_DATABASE_URL=postgresql://dbos:dbos@localhost:5432/claude_codex_planner
 ```
+
+`setup_db.sh` creates the `dbos` role and `claude_codex_planner` database. Re-running it is harmless.
 
 ---
 
