@@ -1,0 +1,8 @@
+name: claude-codex-planner
+language: python
+system_database_url: ${DBOS_DATABASE_URL}
+database:
+  migrate: []
+runtimeConfig:
+  start:
+    - python -m claude_codex_planner
